@@ -1,0 +1,105 @@
+[0.000000] (-) TimerEvent: {}
+[0.000169] (cartpole_sim) JobQueued: {'identifier': 'cartpole_sim', 'dependencies': OrderedDict()}
+[0.000449] (cartpole_sim) JobStarted: {'identifier': 'cartpole_sim'}
+[0.006527] (cartpole_sim) JobProgress: {'identifier': 'cartpole_sim', 'progress': 'cmake'}
+[0.006947] (cartpole_sim) Command: {'cmd': ['/usr/bin/cmake', '/home/pablo/Personal/robotics_workspace/src/cartpole_sim', '-DCMAKE_EXPORT_COMPILE_COMMANDS=ON', '-DAMENT_CMAKE_SYMLINK_INSTALL=1', '-DCMAKE_INSTALL_PREFIX=/home/pablo/Personal/robotics_workspace/install/cartpole_sim'], 'cwd': '/home/pablo/Personal/robotics_workspace/build/cartpole_sim', 'env': OrderedDict({'MAIL': '/var/spool/mail/pablo', 'USER': 'pablo', 'HYPRLAND_INSTANCE_SIGNATURE': 'dd220efe7b1e292415bd0ea7161f63df9c95bfd3_1769694594_1862478256', 'HYPRLAND_CMD': 'Hyprland --watchdog-fd 4', 'HOSTNAME': 'generalisimo', 'XDG_SESSION_TYPE': 'wayland', 'LIBGL_ALWAYS_SOFTWARE': '1', 'SHLVL': '4', 'XCURSOR_SIZE': '24', 'XDG_CACHE_HOME': '/home/pablo/.cache', 'LD_LIBRARY_PATH': '/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/pablo', 'MOTD_SHOWN': 'pam', 'MOZ_ENABLE_WAYLAND': '1', 'TERMINFO': '/usr/lib/kitty/terminfo', 'CONDA_SHLVL': '0', 'OLDPWD': '/home/pablo/Personal/robotics_workspace/src', 'DESKTOP_SESSION': 'hyprland', 'KITTY_INSTALLATION_DIR': '/usr/lib/kitty', 'ROS_PYTHON_VERSION': '3', 'KITTY_PID': '62401', 'P9K_TTY': 'old', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'DISTROBOX_ENTER_PATH': '/usr/bin/distrobox-enter', 'XDG_STATE_HOME': '/home/pablo/.local/state', 'container': 'podman', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.archlinux.org', 'WAYLAND_DISPLAY': 'wayland-1', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'pablo', '_P9K_SSH_TTY': '/dev/pts/0', '_': '/usr/bin/colcon', 'TERMINFO_DIRS': '/usr/share/terminfo:/run/host/usr/share/terminfo', 'XDG_SESSION_CLASS': 'user', 'ROS_VERSION': '2', 'XDG_SESSION_ID': '2', 'TERM': 'xterm-256color', 'KITTY_PUBLIC_KEY': '1:jvGwi7y;lZHlhl_;)i-hHf=T<V^Fl(A3vB2<ox?n', 'GAZEBO_MODEL_PATH': ':/opt/ros/humble/share/turtlebot3_gazebo/models:/opt/ros/humble/share/turtlebot3_gazebo/models', 'HL_INITIAL_WORKSPACE_TOKEN': '4185d9ae-f706-45ff-8839-88181cc88368', 'PATH': '/opt/miniforge/bin:/opt/ros/jazzy/bin:/home/pablo/.local/bin:/opt/miniforge/condabin:/home/pablo/.local/bin:/home/pablo/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/sbin:/usr/sbin:/sbin', 'XDG_SESSION_PATH': '/org/freedesktop/DisplayManager/Session1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'HYPRCURSOR_SIZE': '24', 'DISPLAY': ':1', 'XDG_CURRENT_DESKTOP': 'Hyprland', 'LANG': 'es_ES.UTF-8', 'XDG_CONFIG_HOME': '/home/pablo/.config', 'XDG_SESSION_DESKTOP': 'Hyprland', 'XDG_DATA_HOME': '/home/pablo/.local/share', 'CONDA_PYTHON_EXE': '/opt/miniforge/bin/python', 'AMENT_PREFIX_PATH': '/opt/ros/jazzy', 'SHELL': 'zsh', 'CXX': 'clang++', 'KITTY_WINDOW_ID': '1', 'P9K_SSH': '0', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'CONTAINER_ID': 'ros2_jazzy', 'QT_QPA_PLATFORM': 'xcb', 'PWD': '/home/pablo/Personal/robotics_workspace/build/cartpole_sim', 'TURTLEBOT3_MODEL': 'burger', 'XDG_CONFIG_DIRS': '/etc/xdg', 'CONDA_EXE': '/opt/miniforge/bin/conda', 'XDG_BACKEND': 'wayland', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share', '_P9K_TTY': '/dev/pts/0', 'PYTHONPATH': '/opt/ros/jazzy/lib/python3.12/site-packages', 'CC': 'clang', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[0.099962] (-) TimerEvent: {}
+[0.182186] (cartpole_sim) StdoutLine: {'line': b'-- The C compiler identification is Clang 18.1.3\n'}
+[0.200161] (-) TimerEvent: {}
+[0.255516] (cartpole_sim) StdoutLine: {'line': b'-- The CXX compiler identification is Clang 18.1.3\n'}
+[0.291309] (cartpole_sim) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.300398] (-) TimerEvent: {}
+[0.395465] (cartpole_sim) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.399774] (cartpole_sim) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/clang - skipped\n'}
+[0.399952] (cartpole_sim) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.400450] (-) TimerEvent: {}
+[0.400709] (cartpole_sim) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.421980] (cartpole_sim) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.500665] (-) TimerEvent: {}
+[0.543328] (cartpole_sim) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.551445] (cartpole_sim) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/clang++ - skipped\n'}
+[0.551572] (cartpole_sim) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.551835] (cartpole_sim) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.556711] (cartpole_sim) StdoutLine: {'line': b'-- Found ament_cmake: 2.5.5 (/opt/ros/jazzy/share/ament_cmake/cmake)\n'}
+[0.600878] (-) TimerEvent: {}
+[0.656671] (cartpole_sim) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter \n'}
+[0.701053] (-) TimerEvent: {}
+[0.716293] (cartpole_sim) StdoutLine: {'line': b'-- Override CMake install command with custom implementation using symlinks instead of copying resources\n'}
+[0.740249] (cartpole_sim) StdoutLine: {'line': b'-- Found rclcpp: 28.1.16 (/opt/ros/jazzy/share/rclcpp/cmake)\n'}
+[0.773318] (cartpole_sim) StdoutLine: {'line': b'-- Found rosidl_generator_c: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)\n'}
+[0.781314] (cartpole_sim) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)\n'}
+[0.791727] (cartpole_sim) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.801159] (-) TimerEvent: {}
+[0.804678] (cartpole_sim) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.862170] (cartpole_sim) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 7.3.3 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)\n'}
+[0.863946] (cartpole_sim) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 8.4.3 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)\n'}
+[0.901259] (-) TimerEvent: {}
+[0.929774] (cartpole_sim) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  \n'}
+[0.944564] (cartpole_sim) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") \n'}
+[0.961412] (cartpole_sim) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[1.001479] (-) TimerEvent: {}
+[1.031489] (cartpole_sim) StdoutLine: {'line': b'-- Found std_msgs: 5.3.6 (/opt/ros/jazzy/share/std_msgs/cmake)\n'}
+[1.042983] (cartpole_sim) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.17.4 (/opt/ros/jazzy/share/ament_lint_auto/cmake)\n'}
+[1.101706] (-) TimerEvent: {}
+[1.111695] (cartpole_sim) StdoutLine: {'line': b"-- Added test 'cppcheck' to perform static code analysis on C / C++ code\n"}
+[1.112034] (cartpole_sim) StdoutLine: {'line': b'-- Configured cppcheck include dirs: $<BUILD_INTERFACE:/home/pablo/Personal/robotics_workspace/src/cartpole_sim/include>\n'}
+[1.112181] (cartpole_sim) StdoutLine: {'line': b'-- Configured cppcheck exclude dirs and/or files: \n'}
+[1.112736] (cartpole_sim) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[1.113938] (cartpole_sim) StdoutLine: {'line': b"-- Added test 'uncrustify' to check C / C++ code style\n"}
+[1.114120] (cartpole_sim) StdoutLine: {'line': b'-- Configured uncrustify additional arguments: \n'}
+[1.114724] (cartpole_sim) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[1.116236] (cartpole_sim) StdoutLine: {'line': b'-- Configuring done (1.1s)\n'}
+[1.123533] (cartpole_sim) StdoutLine: {'line': b'-- Generating done (0.0s)\n'}
+[1.125827] (cartpole_sim) StdoutLine: {'line': b'-- Build files have been written to: /home/pablo/Personal/robotics_workspace/build/cartpole_sim\n'}
+[1.132190] (cartpole_sim) CommandEnded: {'returncode': 0}
+[1.133306] (cartpole_sim) JobProgress: {'identifier': 'cartpole_sim', 'progress': 'build'}
+[1.133427] (cartpole_sim) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/pablo/Personal/robotics_workspace/build/cartpole_sim', '--', '-j12', '-l12'], 'cwd': '/home/pablo/Personal/robotics_workspace/build/cartpole_sim', 'env': OrderedDict({'MAIL': '/var/spool/mail/pablo', 'USER': 'pablo', 'HYPRLAND_INSTANCE_SIGNATURE': 'dd220efe7b1e292415bd0ea7161f63df9c95bfd3_1769694594_1862478256', 'HYPRLAND_CMD': 'Hyprland --watchdog-fd 4', 'HOSTNAME': 'generalisimo', 'XDG_SESSION_TYPE': 'wayland', 'LIBGL_ALWAYS_SOFTWARE': '1', 'SHLVL': '4', 'XCURSOR_SIZE': '24', 'XDG_CACHE_HOME': '/home/pablo/.cache', 'LD_LIBRARY_PATH': '/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/pablo', 'MOTD_SHOWN': 'pam', 'MOZ_ENABLE_WAYLAND': '1', 'TERMINFO': '/usr/lib/kitty/terminfo', 'CONDA_SHLVL': '0', 'OLDPWD': '/home/pablo/Personal/robotics_workspace/src', 'DESKTOP_SESSION': 'hyprland', 'KITTY_INSTALLATION_DIR': '/usr/lib/kitty', 'ROS_PYTHON_VERSION': '3', 'KITTY_PID': '62401', 'P9K_TTY': 'old', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'DISTROBOX_ENTER_PATH': '/usr/bin/distrobox-enter', 'XDG_STATE_HOME': '/home/pablo/.local/state', 'container': 'podman', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.archlinux.org', 'WAYLAND_DISPLAY': 'wayland-1', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'pablo', '_P9K_SSH_TTY': '/dev/pts/0', '_': '/usr/bin/colcon', 'TERMINFO_DIRS': '/usr/share/terminfo:/run/host/usr/share/terminfo', 'XDG_SESSION_CLASS': 'user', 'ROS_VERSION': '2', 'XDG_SESSION_ID': '2', 'TERM': 'xterm-256color', 'KITTY_PUBLIC_KEY': '1:jvGwi7y;lZHlhl_;)i-hHf=T<V^Fl(A3vB2<ox?n', 'GAZEBO_MODEL_PATH': ':/opt/ros/humble/share/turtlebot3_gazebo/models:/opt/ros/humble/share/turtlebot3_gazebo/models', 'HL_INITIAL_WORKSPACE_TOKEN': '4185d9ae-f706-45ff-8839-88181cc88368', 'PATH': '/opt/miniforge/bin:/opt/ros/jazzy/bin:/home/pablo/.local/bin:/opt/miniforge/condabin:/home/pablo/.local/bin:/home/pablo/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/sbin:/usr/sbin:/sbin', 'XDG_SESSION_PATH': '/org/freedesktop/DisplayManager/Session1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'HYPRCURSOR_SIZE': '24', 'DISPLAY': ':1', 'XDG_CURRENT_DESKTOP': 'Hyprland', 'LANG': 'es_ES.UTF-8', 'XDG_CONFIG_HOME': '/home/pablo/.config', 'XDG_SESSION_DESKTOP': 'Hyprland', 'XDG_DATA_HOME': '/home/pablo/.local/share', 'CONDA_PYTHON_EXE': '/opt/miniforge/bin/python', 'AMENT_PREFIX_PATH': '/opt/ros/jazzy', 'SHELL': 'zsh', 'CXX': 'clang++', 'KITTY_WINDOW_ID': '1', 'P9K_SSH': '0', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'CONTAINER_ID': 'ros2_jazzy', 'QT_QPA_PLATFORM': 'xcb', 'PWD': '/home/pablo/Personal/robotics_workspace/build/cartpole_sim', 'TURTLEBOT3_MODEL': 'burger', 'XDG_CONFIG_DIRS': '/etc/xdg', 'CONDA_EXE': '/opt/miniforge/bin/conda', 'XDG_BACKEND': 'wayland', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share', '_P9K_TTY': '/dev/pts/0', 'PYTHONPATH': '/opt/ros/jazzy/lib/python3.12/site-packages', 'CC': 'clang', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[1.170509] (cartpole_sim) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/cartpole_node.dir/src/cartpole_node.cpp.o\x1b[0m\n'}
+[1.201918] (-) TimerEvent: {}
+[1.302223] (-) TimerEvent: {}
+[1.402533] (-) TimerEvent: {}
+[1.502765] (-) TimerEvent: {}
+[1.603066] (-) TimerEvent: {}
+[1.703387] (-) TimerEvent: {}
+[1.803613] (-) TimerEvent: {}
+[1.903979] (-) TimerEvent: {}
+[2.004216] (-) TimerEvent: {}
+[2.104425] (-) TimerEvent: {}
+[2.204830] (-) TimerEvent: {}
+[2.305151] (-) TimerEvent: {}
+[2.405450] (-) TimerEvent: {}
+[2.505711] (-) TimerEvent: {}
+[2.606063] (-) TimerEvent: {}
+[2.706449] (-) TimerEvent: {}
+[2.806681] (-) TimerEvent: {}
+[2.906963] (-) TimerEvent: {}
+[3.007199] (-) TimerEvent: {}
+[3.107422] (-) TimerEvent: {}
+[3.137126] (cartpole_sim) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable cartpole_node\x1b[0m\n'}
+[3.207619] (-) TimerEvent: {}
+[3.250818] (cartpole_sim) StdoutLine: {'line': b'[100%] Built target cartpole_node\n'}
+[3.259478] (cartpole_sim) CommandEnded: {'returncode': 0}
+[3.259905] (cartpole_sim) JobProgress: {'identifier': 'cartpole_sim', 'progress': 'install'}
+[3.265180] (cartpole_sim) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/pablo/Personal/robotics_workspace/build/cartpole_sim'], 'cwd': '/home/pablo/Personal/robotics_workspace/build/cartpole_sim', 'env': OrderedDict({'MAIL': '/var/spool/mail/pablo', 'USER': 'pablo', 'HYPRLAND_INSTANCE_SIGNATURE': 'dd220efe7b1e292415bd0ea7161f63df9c95bfd3_1769694594_1862478256', 'HYPRLAND_CMD': 'Hyprland --watchdog-fd 4', 'HOSTNAME': 'generalisimo', 'XDG_SESSION_TYPE': 'wayland', 'LIBGL_ALWAYS_SOFTWARE': '1', 'SHLVL': '4', 'XCURSOR_SIZE': '24', 'XDG_CACHE_HOME': '/home/pablo/.cache', 'LD_LIBRARY_PATH': '/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/pablo', 'MOTD_SHOWN': 'pam', 'MOZ_ENABLE_WAYLAND': '1', 'TERMINFO': '/usr/lib/kitty/terminfo', 'CONDA_SHLVL': '0', 'OLDPWD': '/home/pablo/Personal/robotics_workspace/src', 'DESKTOP_SESSION': 'hyprland', 'KITTY_INSTALLATION_DIR': '/usr/lib/kitty', 'ROS_PYTHON_VERSION': '3', 'KITTY_PID': '62401', 'P9K_TTY': 'old', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'DISTROBOX_ENTER_PATH': '/usr/bin/distrobox-enter', 'XDG_STATE_HOME': '/home/pablo/.local/state', 'container': 'podman', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.archlinux.org', 'WAYLAND_DISPLAY': 'wayland-1', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'pablo', '_P9K_SSH_TTY': '/dev/pts/0', '_': '/usr/bin/colcon', 'TERMINFO_DIRS': '/usr/share/terminfo:/run/host/usr/share/terminfo', 'XDG_SESSION_CLASS': 'user', 'ROS_VERSION': '2', 'XDG_SESSION_ID': '2', 'TERM': 'xterm-256color', 'KITTY_PUBLIC_KEY': '1:jvGwi7y;lZHlhl_;)i-hHf=T<V^Fl(A3vB2<ox?n', 'GAZEBO_MODEL_PATH': ':/opt/ros/humble/share/turtlebot3_gazebo/models:/opt/ros/humble/share/turtlebot3_gazebo/models', 'HL_INITIAL_WORKSPACE_TOKEN': '4185d9ae-f706-45ff-8839-88181cc88368', 'PATH': '/opt/miniforge/bin:/opt/ros/jazzy/bin:/home/pablo/.local/bin:/opt/miniforge/condabin:/home/pablo/.local/bin:/home/pablo/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/sbin:/usr/sbin:/sbin', 'XDG_SESSION_PATH': '/org/freedesktop/DisplayManager/Session1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'HYPRCURSOR_SIZE': '24', 'DISPLAY': ':1', 'XDG_CURRENT_DESKTOP': 'Hyprland', 'LANG': 'es_ES.UTF-8', 'XDG_CONFIG_HOME': '/home/pablo/.config', 'XDG_SESSION_DESKTOP': 'Hyprland', 'XDG_DATA_HOME': '/home/pablo/.local/share', 'CONDA_PYTHON_EXE': '/opt/miniforge/bin/python', 'AMENT_PREFIX_PATH': '/opt/ros/jazzy', 'SHELL': 'zsh', 'CXX': 'clang++', 'KITTY_WINDOW_ID': '1', 'P9K_SSH': '0', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'CONTAINER_ID': 'ros2_jazzy', 'QT_QPA_PLATFORM': 'xcb', 'PWD': '/home/pablo/Personal/robotics_workspace/build/cartpole_sim', 'TURTLEBOT3_MODEL': 'burger', 'XDG_CONFIG_DIRS': '/etc/xdg', 'CONDA_EXE': '/opt/miniforge/bin/conda', 'XDG_BACKEND': 'wayland', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share', '_P9K_TTY': '/dev/pts/0', 'PYTHONPATH': '/opt/ros/jazzy/lib/python3.12/site-packages', 'CC': 'clang', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[3.271543] (cartpole_sim) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[3.272152] (cartpole_sim) StdoutLine: {'line': b'-- Execute custom install script\n'}
+[3.272360] (cartpole_sim) StdoutLine: {'line': b'-- Symlinking: /home/pablo/Personal/robotics_workspace/install/cartpole_sim/lib/cartpole_sim/cartpole_node\n'}
+[3.277799] (cartpole_sim) StdoutLine: {'line': b'-- Symlinking: /home/pablo/Personal/robotics_workspace/install/cartpole_sim/share/ament_index/resource_index/package_run_dependencies/cartpole_sim\n'}
+[3.284607] (cartpole_sim) StdoutLine: {'line': b'-- Symlinking: /home/pablo/Personal/robotics_workspace/install/cartpole_sim/share/ament_index/resource_index/parent_prefix_path/cartpole_sim\n'}
+[3.290362] (cartpole_sim) StdoutLine: {'line': b'-- Symlinking: /home/pablo/Personal/robotics_workspace/install/cartpole_sim/share/cartpole_sim/environment/ament_prefix_path.sh\n'}
+[3.296869] (cartpole_sim) StdoutLine: {'line': b'-- Symlinking: /home/pablo/Personal/robotics_workspace/install/cartpole_sim/share/cartpole_sim/environment/ament_prefix_path.dsv\n'}
+[3.303175] (cartpole_sim) StdoutLine: {'line': b'-- Symlinking: /home/pablo/Personal/robotics_workspace/install/cartpole_sim/share/cartpole_sim/environment/path.sh\n'}
+[3.307737] (-) TimerEvent: {}
+[3.309964] (cartpole_sim) StdoutLine: {'line': b'-- Symlinking: /home/pablo/Personal/robotics_workspace/install/cartpole_sim/share/cartpole_sim/environment/path.dsv\n'}
+[3.318429] (cartpole_sim) StdoutLine: {'line': b'-- Symlinking: /home/pablo/Personal/robotics_workspace/install/cartpole_sim/share/cartpole_sim/local_setup.bash\n'}
+[3.326744] (cartpole_sim) StdoutLine: {'line': b'-- Symlinking: /home/pablo/Personal/robotics_workspace/install/cartpole_sim/share/cartpole_sim/local_setup.sh\n'}
+[3.333290] (cartpole_sim) StdoutLine: {'line': b'-- Symlinking: /home/pablo/Personal/robotics_workspace/install/cartpole_sim/share/cartpole_sim/local_setup.zsh\n'}
+[3.339991] (cartpole_sim) StdoutLine: {'line': b'-- Symlinking: /home/pablo/Personal/robotics_workspace/install/cartpole_sim/share/cartpole_sim/local_setup.dsv\n'}
+[3.346457] (cartpole_sim) StdoutLine: {'line': b'-- Symlinking: /home/pablo/Personal/robotics_workspace/install/cartpole_sim/share/cartpole_sim/package.dsv\n'}
+[3.353492] (cartpole_sim) StdoutLine: {'line': b'-- Symlinking: /home/pablo/Personal/robotics_workspace/install/cartpole_sim/share/ament_index/resource_index/packages/cartpole_sim\n'}
+[3.360514] (cartpole_sim) StdoutLine: {'line': b'-- Symlinking: /home/pablo/Personal/robotics_workspace/install/cartpole_sim/share/cartpole_sim/cmake/cartpole_simConfig.cmake\n'}
+[3.366454] (cartpole_sim) StdoutLine: {'line': b'-- Symlinking: /home/pablo/Personal/robotics_workspace/install/cartpole_sim/share/cartpole_sim/cmake/cartpole_simConfig-version.cmake\n'}
+[3.373193] (cartpole_sim) StdoutLine: {'line': b'-- Symlinking: /home/pablo/Personal/robotics_workspace/install/cartpole_sim/share/cartpole_sim/package.xml\n'}
+[3.380048] (cartpole_sim) CommandEnded: {'returncode': 0}
+[3.391841] (cartpole_sim) JobEnded: {'identifier': 'cartpole_sim', 'rc': 0}
+[3.392560] (-) EventReactorShutdown: {}
