@@ -1,1 +1,0 @@
-/home/pablo/Personal/robotics_workspace/build/cartpole_sim/ament_cmake_environment_hooks/local_setup.zsh

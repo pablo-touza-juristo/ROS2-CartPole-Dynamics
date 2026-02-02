@@ -9,12 +9,17 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(Eigen3 REQUIRED NO_MODULE)
 
 add_executable(cartpole_node src/cartpole_node.cpp)
+target_link_libraries(cartpole_node Eigen3::Eigen)
 target_include_directories(cartpole_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include/${PROJECT_NAME}>)
-target_compile_features(cartpole_node PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+  $<INSTALL_INTERFACE:include/${PROJECT_NAME}>
+)
+
+# Require C99 and C++17
+target_compile_features(cartpole_node PUBLIC c_std_99 cxx_std_17)
 ament_target_dependencies(
   cartpole_node
   "rclcpp"
