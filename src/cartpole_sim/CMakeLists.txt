@@ -11,11 +11,16 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(Eigen3 REQUIRED NO_MODULE)
 
-add_executable(cartpole_node src/cartpole_node.cpp)
-target_link_libraries(cartpole_node Eigen3::Eigen)
-target_include_directories(cartpole_node PUBLIC
+add_library(cartpole_dynamics src/dynamics/simple_pendulum.cpp)
+target_link_libraries(cartpole_dynamics PUBLIC Eigen3::Eigen)
+target_include_directories(cartpole_dynamics PUBLIC 
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include/${PROJECT_NAME}>
+  $<INSTALL_INTERFACE:include>
+)
+
+add_executable(cartpole_node src/cartpole_node.cpp)
+target_link_libraries(cartpole_node STATIC
+  cartpole_dynamics
 )
 
 # Require C99 and C++17
@@ -25,6 +30,21 @@ ament_target_dependencies(
   "rclcpp"
   "std_msgs"
 )
+
+install(
+  DIRECTORY include/
+  DESTINATION include
+)
+
+install(
+  TARGETS cartpole_dynamics
+  EXPORT export_cartpole_dynamics
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib
+  RUNTIME DESTINATION bin
+)
+
+ament_export_targets(export_cartpole_dynamics HAS_LIBRARY_TARGET)
 
 install(TARGETS cartpole_node
   DESTINATION lib/${PROJECT_NAME})
@@ -40,5 +60,8 @@ if(BUILD_TESTING)
   set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
+
+ament_export_include_directories(include)
+ament_export_libraries(cartpole_dynamics)
 
 ament_package()
