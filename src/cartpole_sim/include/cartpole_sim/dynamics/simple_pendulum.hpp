@@ -5,13 +5,13 @@
 
 #include <Eigen/Dense>
 
-namespace cartpole_sim {
+namespace cartpole_sim::dynamics {
 
 class SimplePendulum
 {
   public:
     SimplePendulum(double gravity, double cable_longitude, double mass);
-
+    double compute_energy(const Eigen::Vector2d& state) const;
     Eigen::Vector2d compute_dynamics(const Eigen::Vector2d& state) const;
 
   private:
@@ -20,6 +20,6 @@ class SimplePendulum
     double mass_;
 };
 
-}  // namespace cartpole_sim
+}  // namespace cartpole_sim::dynamics
 
 #endif
