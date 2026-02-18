@@ -1,44 +1,36 @@
-cmake_minimum_required(VERSION 3.8)
-project(cartpole_sim)
+cmake_minimum_required(VERSION 3.10)
+project(cartpole_physics_validation)
 
+# 1. Estándar C++ (Lo forzamos globalmente aquí)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# 2. Flags de compilación (Para que seas riguroso)
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-# find dependencies
-find_package(ament_cmake REQUIRED)
-find_package(rclcpp REQUIRED)
-find_package(std_msgs REQUIRED)
-find_package(Eigen3 REQUIRED NO_MODULE)
+# 3. Dependencias (Solo Eigen3 por ahora)
+find_package(Eigen3 REQUIRED)
 
-add_executable(cartpole_node src/cartpole_node.cpp)
-target_link_libraries(cartpole_node Eigen3::Eigen)
-target_include_directories(cartpole_node PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include/${PROJECT_NAME}>
+# 4. Librería de Física (Tu motor)
+# NOTA: He añadido rk4_integration.cpp que faltaba en tu lista
+add_library(physics_engine
+  src/dynamics/simple_pendulum.cpp
+  src/math/rk4_integration.cpp
 )
 
-# Require C99 and C++17
-target_compile_features(cartpole_node PUBLIC c_std_99 cxx_std_17)
-ament_target_dependencies(
-  cartpole_node
-  "rclcpp"
-  "std_msgs"
+# Dónde están los headers (.hpp)
+target_include_directories(physics_engine PUBLIC 
+  "${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
-install(TARGETS cartpole_node
-  DESTINATION lib/${PROJECT_NAME})
+# Enlazar Eigen a la librería
+target_link_libraries(physics_engine PUBLIC Eigen3::Eigen)
 
-if(BUILD_TESTING)
-  find_package(ament_lint_auto REQUIRED)
-  # the following line skips the linter which checks for copyrights
-  # comment the line when a copyright and license is added to all source files
-  set(ament_cmake_copyright_FOUND TRUE)
-  # the following line skips cpplint (only works in a git repo)
-  # comment the line when this package is in a git repo and when
-  # a copyright and license is added to all source files
-  set(ament_cmake_cpplint_FOUND TRUE)
-  ament_lint_auto_find_test_dependencies()
-endif()
+# 5. Ejecutable de Validación (Tu main.cpp)
+# Asegúrate de crear un archivo 'src/main.cpp' que NO tenga nada de ROS
+add_executable(run_simulation src/cartpole_node.cpp)
 
-ament_package()
+# Enlazar tu ejecutable con tu librería de física
+target_link_libraries(run_simulation PRIVATE physics_engine)
