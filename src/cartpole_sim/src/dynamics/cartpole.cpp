@@ -1,6 +1,6 @@
 #include "cartpole_sim/dynamics/cartpole.hpp"
 
-#include <Eigen/Core>
+#include <Eigen/Dense>
 #include <cmath>
 
 namespace cartpole_sim::dynamics {
