@@ -3,7 +3,7 @@
 #include <Eigen/Core>
 #include <cmath>
 
-namespace cartpole::dynamics {
+namespace cartpole_sim::dynamics {
 
 // Constructor for the CartPole class, i initialize the parameters using
 // initialization lists and initialize the input_force_ paremeter as 0 so the
@@ -97,4 +97,4 @@ double CartPole::compute_mechanical_energy(const Eigen::Vector4d& state) const
   return mechanical_energy;
 }
 
-}  // namespace cartpole::dynamics
+}  // namespace cartpole_sim::dynamics

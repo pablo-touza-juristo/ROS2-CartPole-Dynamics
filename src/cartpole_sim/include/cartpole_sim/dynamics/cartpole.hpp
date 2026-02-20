@@ -3,7 +3,7 @@
 
 #include <Eigen/Dense>
 
-namespace cartpole::dynamics {
+namespace cartpole_sim::dynamics {
 
 class CartPole
 {
@@ -21,5 +21,5 @@ class CartPole
     double input_force_;
 };
 
-}  // namespace cartpole::dynamics
+}  // namespace cartpole_sim::dynamics
 #endif
