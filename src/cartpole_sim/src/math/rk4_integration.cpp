@@ -1,8 +1,8 @@
-#include "cartpole_sim/math/rk4_integration.hpp"
+#include "cartpole_sim/math/rk4_integrator.hpp"
 
 namespace cartpole_sim::math {
 
-RK4Integration::RK4Integration(double dt) : dt_(dt) {}
+RK4Integrator::RK4Integrator(double dt) : dt_(dt) {}
 
 // Implementation of a Runge-Kutta fourth order numeric integrator
 // for simulating the dynamics of a generic system whose state can
@@ -12,7 +12,7 @@ RK4Integration::RK4Integration(double dt) : dt_(dt) {}
 // a half step ahead, another half step ahead and then a whole step. Then
 // i calculate de resulting state of the system using the weighted sum
 // of the four states
-Eigen::Vector4d RK4Integration::numeric_integration(
+Eigen::Vector4d RK4Integrator::numeric_integration(
     const Eigen::Vector4d& state,
     std::function<Eigen::Vector4d(Eigen::Vector4d)> compute_dynamics) const
 {

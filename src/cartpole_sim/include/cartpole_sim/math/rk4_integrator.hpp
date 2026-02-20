@@ -5,10 +5,10 @@
 #include <functional>
 
 namespace cartpole_sim::math {
-class RK4Integration
+class RK4Integrator
 {
   public:
-    RK4Integration(double dt);
+    RK4Integrator(double dt);
     Eigen::Vector4d numeric_integration(
         const Eigen::Vector4d& state,
         std::function<Eigen::Vector4d(Eigen::Vector4d)> compute_dynamics) const;
