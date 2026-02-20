@@ -16,7 +16,7 @@ find_package(Eigen3 REQUIRED)
 # 4. Librería de Física (Tu motor)
 # NOTA: He añadido rk4_integration.cpp que faltaba en tu lista
 add_library(physics_engine
-  src/dynamics/simple_pendulum.cpp
+  src/dynamics/cartpole.cpp
   src/math/rk4_integration.cpp
 )
 
