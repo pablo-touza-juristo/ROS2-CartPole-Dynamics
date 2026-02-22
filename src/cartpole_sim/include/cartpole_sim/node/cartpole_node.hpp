@@ -2,7 +2,6 @@
 #define CARTPOLE_NODE_HPP
 
 #include <Eigen/Dense>
-#include <memory>
 #include <rclcpp/node.hpp>
 #include <rclcpp/publisher.hpp>
 #include <sensor_msgs/msg/joint_state.hpp>
@@ -18,9 +17,9 @@ namespace cartpole_sim::math {
 class RK4Integrator;
 }
 
-namespace cartpole_sim {
+namespace cartpole_sim::node {
 
-class CartPoleNode : rclcpp::Node
+class CartPoleNode : public rclcpp::Node
 {
   public:
     CartPoleNode(dynamics::CartPole& cartpole,
@@ -28,12 +27,13 @@ class CartPoleNode : rclcpp::Node
 
   private:
     dynamics::CartPole* cartpole_;
-    math::RK4Integrator* rk4_integrator;
+    math::RK4Integrator* rk4_integrator_;
     Eigen::Vector4d state_;
     rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr publisher_;
     rclcpp::TimerBase::SharedPtr timer_;
+    sensor_msgs::msg::JointState joint_state_;
 };
 
-}  // namespace cartpole_sim
+}  // namespace cartpole_sim::node
 
 #endif

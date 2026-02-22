@@ -14,7 +14,8 @@ RK4Integrator::RK4Integrator(double dt) : dt_(dt) {}
 // of the four states
 Eigen::Vector4d RK4Integrator::numeric_integration(
     const Eigen::Vector4d& state,
-    std::function<Eigen::Vector4d(Eigen::Vector4d)> compute_dynamics) const
+    std::function<Eigen::Vector4d(const Eigen::Vector4d&)> compute_dynamics)
+    const
 {
   const auto k1 = compute_dynamics(state);
   const auto k2 = compute_dynamics(state + (0.5 * dt_ * k1));
