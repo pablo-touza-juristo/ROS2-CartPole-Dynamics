@@ -1,36 +1,75 @@
-cmake_minimum_required(VERSION 3.10)
-project(cartpole_physics_validation)
+cmake_minimum_required(VERSION 3.8)
+project(cartpole_sim)
 
-# 1. Estándar C++ (Lo forzamos globalmente aquí)
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# 2. Flags de compilación (Para que seas riguroso)
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-# 3. Dependencias (Solo Eigen3 por ahora)
-find_package(Eigen3 REQUIRED)
+# find dependencies
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(Eigen3 REQUIRED NO_MODULE)
 
-# 4. Librería de Física (Tu motor)
-# NOTA: He añadido rk4_integration.cpp que faltaba en tu lista
-add_library(physics_engine
-  src/dynamics/cartpole.cpp
+add_library(
+  cartpole_physics 
+  src/node/cartpole_node.cpp
+  src/dynamics/cartpole.cpp 
   src/math/rk4_integration.cpp
 )
-
-# Dónde están los headers (.hpp)
-target_include_directories(physics_engine PUBLIC 
-  "${CMAKE_CURRENT_SOURCE_DIR}/include"
+target_link_libraries(cartpole_physics Eigen3::Eigen)
+target_include_directories(cartpole_physics PUBLIC 
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
 )
 
-# Enlazar Eigen a la librería
-target_link_libraries(physics_engine PUBLIC Eigen3::Eigen)
+ament_target_dependencies(
+  cartpole_physics
+  "sensor_msgs"
+  "rclcpp"
+)
 
-# 5. Ejecutable de Validación (Tu main.cpp)
-# Asegúrate de crear un archivo 'src/main.cpp' que NO tenga nada de ROS
-add_executable(run_simulation src/cartpole_node.cpp)
+add_executable(cartpole_physics_node src/cartpole_main.cpp)
+target_link_libraries(
+  cartpole_physics_node
+  cartpole_physics
+)
 
-# Enlazar tu ejecutable con tu librería de física
-target_link_libraries(run_simulation PRIVATE physics_engine)
+# Require C99 and C++17
+target_compile_features(cartpole_physics_node PUBLIC c_std_99 cxx_std_17)
+
+install(
+  DIRECTORY include/
+  DESTINATION include
+)
+
+install(
+  TARGETS cartpole_physics
+  EXPORT export_cartpole_physics
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib
+  RUNTIME DESTINATION bin
+)
+
+ament_export_targets(export_cartpole_physics HAS_LIBRARY_TARGET)
+
+install(TARGETS cartpole_physics_node
+  DESTINATION lib/${PROJECT_NAME})
+
+if(BUILD_TESTING)
+  find_package(ament_lint_auto REQUIRED)
+  # the following line skips the linter which checks for copyrights
+  # comment the line when a copyright and license is added to all source files
+  set(ament_cmake_copyright_FOUND TRUE)
+  # the following line skips cpplint (only works in a git repo)
+  # comment the line when this package is in a git repo and when
+  # a copyright and license is added to all source files
+  set(ament_cmake_cpplint_FOUND TRUE)
+  ament_lint_auto_find_test_dependencies()
+endif()
+
+ament_export_include_directories(include)
+ament_export_libraries(cartpole_physics)
+
+ament_package()

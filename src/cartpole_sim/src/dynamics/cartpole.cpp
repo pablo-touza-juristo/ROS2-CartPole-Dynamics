@@ -5,9 +5,8 @@
 
 namespace cartpole_sim::dynamics {
 
-// Constructor for the CartPole class, i initialize the parameters using
-// initialization lists and initialize the input_force_ paremeter as 0 so the
-// cart starts in an still position
+// Initialize the input_force_ paremeter as 0 so the
+// cart is stationary
 CartPole::CartPole(double pendulum_mass, double cable_longitude, double gravity,
                    double cart_mass)
     : pendulum_mass_(pendulum_mass),
@@ -18,23 +17,16 @@ CartPole::CartPole(double pendulum_mass, double cable_longitude, double gravity,
   input_force_ = 0;
 }
 
-// This function will compute the dynamics of the full system using the
-// Lagrangian and resulting in the following formula: M(q)*q_dotdot + C(q,
-// q_dot)*q_dot = t_g(q) + B*u
-//
-// Using the previous equation i can solve by solving for q_dotdot, solving
-// for this vector leaves the formula as a linear system equation (Ax = b)
-// being A the 2x2 matrix M(q), x being a 2x1 vector q_dotdot and b being the
-// following operation: t_g(q) + B*u - C(q, q_dot)*q_dot
-//
-// Being the masses matrix a simetrical 2x2 matrix seems appropriate to use the
-// ldlt resolution method for it's simplicity and speed.
+double CartPole::get_input_force_() { return input_force_; }
+void CartPole::set_input_force_(double input_force)
+{
+  input_force_ = input_force;
+}
+
 Eigen::Vector4d CartPole::compute_dynamics(const Eigen::Vector4d& state) const
 {
-  // 2x2 Matrices mass and coriolis
   Eigen::Matrix<double, 2, 2> mass, coriolis;
-  Eigen::Vector2d tau_gravity, control_vector,
-      speed;  // the 2x1 vectors that will be used
+  Eigen::Vector2d tau_gravity, control_vector, speed;
 
   // Initialization of the matrices and vectors using the members of the
   // CartPole, and the actual state of the cartpole
@@ -50,6 +42,8 @@ Eigen::Vector4d CartPole::compute_dynamics(const Eigen::Vector4d& state) const
   control_vector << 1, 0;
   speed << state(2), state(3);
 
+  // Being the masses matrix a symmetrical 2x2 matrix seems appropriate to use
+  // the ldlt resolution method for it's simplicity and speed.
   // The resolution of the system yields a 2x1 vector that contains the
   // accelerations of the system in the actual state
   auto acceleration = mass.ldlt().solve(
@@ -64,9 +58,6 @@ Eigen::Vector4d CartPole::compute_dynamics(const Eigen::Vector4d& state) const
   return dot_state;
 }
 
-// This function takes on the role of calculating the mechanical energy of the
-// system it does not have an utility outside of corroborating the correctness
-// of the simulation
 double CartPole::compute_mechanical_energy(const Eigen::Vector4d& state) const
 {
   double kinetic_energy, potential_energy, mechanical_energy, angular_position,
@@ -76,7 +67,7 @@ double CartPole::compute_mechanical_energy(const Eigen::Vector4d& state) const
   linear_speed = state(2);
   angular_speed = state(3);
 
-  // The kintetical energy of the system, because there are two components (cart
+  // The kinetic energy of the system, because there are two components (cart
   // and pendulum) the formula is the result of the sum of the two speeds
   // squared
   kinetic_energy =
