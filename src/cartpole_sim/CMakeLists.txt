@@ -8,33 +8,36 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(Eigen3 REQUIRED NO_MODULE)
 
 add_library(
   cartpole_physics 
+  src/node/cartpole_node.cpp
   src/dynamics/cartpole.cpp 
   src/math/rk4_integration.cpp
 )
-target_link_libraries(cartpole_physics PUBLIC Eigen3::Eigen)
+target_link_libraries(cartpole_physics Eigen3::Eigen)
 target_include_directories(cartpole_physics PUBLIC 
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
 )
 
-add_executable(cartpole_node src/cartpole_node.cpp)
+ament_target_dependencies(
+  cartpole_physics
+  "sensor_msgs"
+  "rclcpp"
+)
+
+add_executable(cartpole_physics_node src/cartpole_main.cpp)
 target_link_libraries(
-  cartpole_node
+  cartpole_physics_node
   cartpole_physics
 )
 
 # Require C99 and C++17
-target_compile_features(cartpole_node PUBLIC c_std_99 cxx_std_17)
-ament_target_dependencies(
-  cartpole_node
-  "rclcpp"
-  "std_msgs"
-)
+target_compile_features(cartpole_physics_node PUBLIC c_std_99 cxx_std_17)
 
 install(
   DIRECTORY include/
@@ -51,7 +54,7 @@ install(
 
 ament_export_targets(export_cartpole_physics HAS_LIBRARY_TARGET)
 
-install(TARGETS cartpole_node
+install(TARGETS cartpole_physics_node
   DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
