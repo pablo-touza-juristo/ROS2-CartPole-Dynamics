@@ -45,6 +45,14 @@ install(
 )
 
 install(
+  DIRECTORY 
+  launch
+  urdf
+  rviz
+  DESTINATION share/${PROJECT_NAME}
+)
+
+install(
   TARGETS cartpole_physics
   EXPORT export_cartpole_physics
   LIBRARY DESTINATION lib
