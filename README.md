@@ -44,14 +44,11 @@ modern robotics middleware and professional software standards.
 
 ## 2. Mathematical Modeling
 
-To ensure the simulation's fidelity, the system is modeled using **Lagrangian mechanics**.
-This analytical approach allows for a precise derivation of the equations of motion (EoM),
-capturing the complex non-linear coupling between the cart and the pendulum.
+To ensure the simulation's fidelity, the system is modeled using **Lagrangian mechanics**. This analytical approach allows for a precise derivation of the equations of motion (EoM), capturing the complex non-linear coupling between the cart and the pendulum.
 
 ### 2.1. System Parameters and Coordinates
 
-The model consists of a cart of mass $M$ constrained to move along a horizontal track and a
-rigid pendulum of mass $m$ and length $l$ attached to the cart's pivot.
+The model consists of a cart of mass $M$ constrained to move along a horizontal track and a rigid pendulum of mass $m$ and length $l$ attached to the cart's pivot.
 
 | Parameter       | Symbol |  Unit   | Description                                   |
 | :-------------- | :----: | :-----: | :-------------------------------------------- |
@@ -63,9 +60,7 @@ rigid pendulum of mass $m$ and length $l$ attached to the cart's pivot.
 
 ### 2.2. State-Space Representation
 
-The system state $\mathbf{x}$ is defined by grouping the generalized coordinates followed by
-their respective time derivatives. This structure is implemented using **Eigen3** vectors for
-optimized memory alignment and computation:
+The system state $\mathbf{x}$ is defined by grouping the generalized coordinates followed by their respective time derivatives. This structure is implemented using **Eigen3** vectors for optimized memory alignment and computation:
 
 $$
 \mathbf{x} = \begin{bmatrix} x \\ \theta \\ \dot{x} \\ \dot{\theta} \end{bmatrix}
@@ -80,50 +75,41 @@ Where:
 
 ### 2.3. Equations of Motion (Matrix Form)
 
-The dynamics can be expressed in the standard robotic manipulator form, which is particularly
-useful for future control implementation and physics validation:
+The dynamics can be expressed in the standard robotic manipulator form, which is particularly useful for physics validation and future control implementation:
 
 $$
-M(q)\ddot{q} + C(q, \dot{q})\dot{q} + G(q) = \tau
+\mathbf{M}(q)\ddot{q} + \mathbf{C}(q, \dot{q})\dot{q} + \mathbf{G}(q) = \boldsymbol{\tau}
 $$
 
 Given the generalized coordinates $q = [x, \theta]^T$, the matrices are defined as:
 
-**Mass Matrix $M(q)$:**
-Representing the inertial properties of the system.
+**Mass Matrix $\mathbf{M}(q)$:**
 
 $$
-M(q) = \begin{bmatrix} M + m & ml \cos\theta \\ ml \cos\theta & ml^2 \end{bmatrix}
+\mathbf{M}(q) = \begin{bmatrix} M + m & ml \cos\theta \\ ml \cos\theta & ml^2 \end{bmatrix}
 $$
 
-**Coriolis and Centrifugal Vector $C(q, \dot{q})\dot{q}$:**
-Capturing the non-linear velocity-dependent forces.
+**Coriolis and Centrifugal Vector $\mathbf{C}(q, \dot{q})\dot{q}$:**
 
 $$
-C(q, \dot{q})\dot{q} = \begin{bmatrix} -ml\dot{\theta}^2 \sin\theta \\ 0 \end{bmatrix}
+\mathbf{C}(q, \dot{q})\dot{q} = \begin{bmatrix} -ml\dot{\theta}^2 \sin\theta \\ 0 \end{bmatrix}
 $$
 
-**Gravity Vector $G(q)$:**
-Representing the conservative forces acting on the pendulum.
+**Gravity Vector $\mathbf{G}(q)$:**
 
 $$
-G(q) = \begin{bmatrix} 0 \\ -mgl \sin\theta \end{bmatrix}
+\mathbf{G}(q) = \begin{bmatrix} 0 \\ -mgl \sin\theta \end{bmatrix}
 $$
 
-**Generalized Forces $\tau$:**
+**Generalized Forces $\boldsymbol{\tau}$:**
 
 $$
-\tau = \begin{bmatrix} F \\ 0 \end{bmatrix}
+\boldsymbol{\tau} = \begin{bmatrix} F \\ 0 \end{bmatrix}
 $$
 
 ### 2.4. Numerical Integration
 
-These coupled non-linear equations are numerically integrated in real-time within the **ROS 2 Jazzy** node
-using a **4th-order Runge-Kutta (RK4)** method. This ensures high numerical stability and energy conservation
-during the simulation at a fixed frequency of **100Hz**. The code adheres to the **Google C++ Style Guide**
-to ensure professional software standards.
-
-## 3. Software Architecture
+These coupled non-linear equations are numerically integrated in real-time within the **ROS 2 Jazzy** node using a **4th-order Runge-Kutta (RK4)** method. This ensures high numerical stability and energy conservation during the simulation at a fixed frequency of **100Hz**. The implementation follows the **Google C++ Style Guide** and leverages **Eigen3** for efficient matrix-vector operations.## 3. Software Architecture
 
 ## 4. Verification and Validation
 
