@@ -60,7 +60,7 @@ The model consists of a cart of mass $M$ constrained to move along a horizontal 
 
 ### 2.2. State-Space Representation
 
-The system state $\mathbf{x}$ is defined by grouping the generalized coordinates followed by their respective time derivatives. This structure is implemented using **Eigen3** vectors for optimized memory alignment and computation:
+The system state $\mathbf{x}$ is defined by grouping the generalized coordinates followed by their respective time derivatives. This structure is implemented using **Eigen3** vectors for optimized computation:
 
 $$
 \mathbf{x} = \begin{bmatrix} x \\ \theta \\ \dot{x} \\ \dot{\theta} \end{bmatrix}
@@ -75,7 +75,7 @@ Where:
 
 ### 2.3. Equations of Motion (Matrix Form)
 
-The dynamics can be expressed in the standard robotic manipulator form, which is particularly useful for physics validation and future control implementation:
+The dynamics are expressed in the standard robotic manipulator form, which is essential for physics validation:
 
 $$
 \mathbf{M}(q)\ddot{q} + \mathbf{C}(q, \dot{q})\dot{q} + \mathbf{G}(q) = \boldsymbol{\tau}
@@ -109,7 +109,9 @@ $$
 
 ### 2.4. Numerical Integration
 
-These coupled non-linear equations are numerically integrated in real-time within the **ROS 2 Jazzy** node using a **4th-order Runge-Kutta (RK4)** method. This ensures high numerical stability and energy conservation during the simulation at a fixed frequency of **100Hz**. The implementation follows the **Google C++ Style Guide** and leverages **Eigen3** for efficient matrix-vector operations.## 3. Software Architecture
+These coupled non-linear equations are numerically integrated in real-time within the **ROS 2 Jazzy** node using a **4th-order Runge-Kutta (RK4)** method. This ensures high numerical stability and energy conservation during the simulation at a fixed frequency of **100Hz**.## 4. Verification and Validation
+
+## 3. Software Architecture
 
 ## 4. Verification and Validation
 
