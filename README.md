@@ -180,3 +180,21 @@ cd ..
 colcon build --packages-select cartpole_sim
 source install/setup.bash
 ```
+
+### 5.3 Usage
+
+To launch the physics simulation node:
+
+```bash
+
+ros2 run cartpole_sim cartpole_physics_node
+
+```
+
+Outputs:
+The node continuously publishes the system's state to the `/joint_states` topic at 100Hz. The
+message structure maps the physical state vector to the respective joints:
+
+- `cart_joint`: Prismatic joint representing the x position and linear velocity.
+
+- `pendulum_joint`: Continuous joint representing the θ angle and angular velocity.
