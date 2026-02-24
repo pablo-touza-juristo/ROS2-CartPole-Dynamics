@@ -73,53 +73,56 @@ Where:
 - **$\dot{x}$**: Linear velocity of the cart.
 - **$\dot{\theta}$**: Angular velocity of the pendulum.
 
-### 2.3. Equations of Motion (Matrix Form)
+### 2.3. Equations of Motion (Manipulator Form)
 
-The dynamics can be expressed in the standard robotic manipulator form, which is particularly useful for physics validation and future control implementation:
-
-$$\mathbf{M}(q)\ddot{q} + \mathbf{C}(q, \dot{q})\dot{q} + \mathbf{G}(q) = \boldsymbol{\tau}$$
-
-Given the generalized coordinates $q = [x, \theta]^T$, the matrices are defined as:
-
-**Mass Matrix $\mathbf{M}(q)$:**
+The system dynamics are expressed in the standard robotic manipulator equation form, following the conventions of modern underactuated robotics literature:
 
 $$
-\mathbf{M}(q) = \begin{bmatrix}
+\mathbf{M}(\mathbf{q})\ddot{\mathbf{q}} + \mathbf{C}(\mathbf{q}, \dot{\mathbf{q}})\dot{\mathbf{q}} = \boldsymbol{\tau}_g(\mathbf{q}) + \mathbf{B}u
+$$
+
+Given the generalized coordinates $\mathbf{q} = [x, \theta]^T$ and the scalar control input $u = F$, the matrices are defined as follows:
+
+**Mass/Inertia Matrix $\mathbf{M}(\mathbf{q})$:**
+
+$$
+\mathbf{M}(\mathbf{q}) = \begin{bmatrix}
 M + m & ml \cos\theta \\
 ml \cos\theta & ml^2
 \end{bmatrix}
 $$
 
-**Coriolis and Centrifugal Vector $\mathbf{C}(q, \dot{q})\dot{q}$:**
+**Coriolis and Centrifugal Matrix $\mathbf{C}(\mathbf{q}, \dot{\mathbf{q}})$:**
 
 $$
-\mathbf{C}(q, \dot{q})\dot{q} = \begin{bmatrix}
--ml\dot{\theta}^2 \sin\theta \\
-0
+\mathbf{C}(\mathbf{q}, \dot{\mathbf{q}}) = \begin{bmatrix}
+0 & -ml\dot{\theta}\sin\theta \\
+0 & 0
 \end{bmatrix}
 $$
 
-**Gravity Vector $\mathbf{G}(q)$:**
+**Gravity Vector $\boldsymbol{\tau}_g(\mathbf{q})$:**
 
 $$
-\mathbf{G}(q) = \begin{bmatrix}
+\boldsymbol{\tau}_g(\mathbf{q}) = \begin{bmatrix}
 0 \\
 -mgl \sin\theta
 \end{bmatrix}
 $$
 
-**Generalized Forces $\boldsymbol{\tau}$:**
+**Input Actuation Matrix $\mathbf{B}$:**
+The system is fundamentally underactuated, as $\text{rank}(\mathbf{B}) < \dim(\mathbf{q})$:
 
 $$
-\boldsymbol{\tau} = \begin{bmatrix}
-F \\
+\mathbf{B} = \begin{bmatrix}
+1 \\
 0
 \end{bmatrix}
 $$
 
 ### 2.4. Numerical Integration
 
-These coupled non-linear equations are numerically integrated in real-time within the **ROS 2 Jazzy** node using a **4th-order Runge-Kutta (RK4)** method. This ensures high numerical stability and energy conservation during the simulation at a fixed frequency of **100Hz**.## 3. Software Architecture
+These coupled non-linear equations are numerically integrated in real-time within the **ROS 2 Jazzy** node using a **4th-order Runge-Kutta (RK4)** method. This ensures high numerical stability and energy conservation during the simulation at a fixed frequency of **100Hz**.
 
 ## 3. Software Architecture
 
