@@ -75,41 +75,51 @@ Where:
 
 ### 2.3. Equations of Motion (Matrix Form)
 
-The dynamics are expressed in the standard robotic manipulator form, which is essential for physics validation:
+The dynamics can be expressed in the standard robotic manipulator form, which is particularly useful for physics validation and future control implementation:
 
-$$
-\mathbf{M}(q)\ddot{q} + \mathbf{C}(q, \dot{q})\dot{q} + \mathbf{G}(q) = \boldsymbol{\tau}
-$$
+$$\mathbf{M}(q)\ddot{q} + \mathbf{C}(q, \dot{q})\dot{q} + \mathbf{G}(q) = \boldsymbol{\tau}$$
 
 Given the generalized coordinates $q = [x, \theta]^T$, the matrices are defined as:
 
 **Mass Matrix $\mathbf{M}(q)$:**
 
 $$
-\mathbf{M}(q) = \begin{bmatrix} M + m & ml \cos\theta \\ ml \cos\theta & ml^2 \end{bmatrix}
+\mathbf{M}(q) = \begin{bmatrix}
+M + m & ml \cos\theta \\
+ml \cos\theta & ml^2
+\end{bmatrix}
 $$
 
 **Coriolis and Centrifugal Vector $\mathbf{C}(q, \dot{q})\dot{q}$:**
 
 $$
-\mathbf{C}(q, \dot{q})\dot{q} = \begin{bmatrix} -ml\dot{\theta}^2 \sin\theta \\ 0 \end{bmatrix}
+\mathbf{C}(q, \dot{q})\dot{q} = \begin{bmatrix}
+-ml\dot{\theta}^2 \sin\theta \\
+0
+\end{bmatrix}
 $$
 
 **Gravity Vector $\mathbf{G}(q)$:**
 
 $$
-\mathbf{G}(q) = \begin{bmatrix} 0 \\ -mgl \sin\theta \end{bmatrix}
+\mathbf{G}(q) = \begin{bmatrix}
+0 \\
+-mgl \sin\theta
+\end{bmatrix}
 $$
 
 **Generalized Forces $\boldsymbol{\tau}$:**
 
 $$
-\boldsymbol{\tau} = \begin{bmatrix} F \\ 0 \end{bmatrix}
+\boldsymbol{\tau} = \begin{bmatrix}
+F \\
+0
+\end{bmatrix}
 $$
 
 ### 2.4. Numerical Integration
 
-These coupled non-linear equations are numerically integrated in real-time within the **ROS 2 Jazzy** node using a **4th-order Runge-Kutta (RK4)** method. This ensures high numerical stability and energy conservation during the simulation at a fixed frequency of **100Hz**.## 4. Verification and Validation
+These coupled non-linear equations are numerically integrated in real-time within the **ROS 2 Jazzy** node using a **4th-order Runge-Kutta (RK4)** method. This ensures high numerical stability and energy conservation during the simulation at a fixed frequency of **100Hz**.## 3. Software Architecture
 
 ## 3. Software Architecture
 
