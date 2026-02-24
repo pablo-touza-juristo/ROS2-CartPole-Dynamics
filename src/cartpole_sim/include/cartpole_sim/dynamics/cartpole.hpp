@@ -29,8 +29,8 @@ class CartPole
         correctness of the simulation
     */
     double compute_mechanical_energy(const Eigen::Vector4d& state) const;
-    double get_input_force_();
-    void set_input_force_(double input_force);
+    double get_input_force();
+    void set_input_force(double input_force);
 
   private:
     double pendulum_mass_;

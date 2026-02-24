@@ -17,8 +17,8 @@ CartPole::CartPole(double pendulum_mass, double cable_longitude, double gravity,
   input_force_ = 0;
 }
 
-double CartPole::get_input_force_() { return input_force_; }
-void CartPole::set_input_force_(double input_force)
+double CartPole::get_input_force() { return input_force_; }
+void CartPole::set_input_force(double input_force)
 {
   input_force_ = input_force;
 }

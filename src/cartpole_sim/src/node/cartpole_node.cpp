@@ -1,5 +1,7 @@
 #include "cartpole_sim/node/cartpole_node.hpp"
 
+#include <functional>
+
 #include "cartpole_sim/constants.hpp"
 #include "cartpole_sim/dynamics/cartpole.hpp"
 #include "cartpole_sim/math/rk4_integrator.hpp"
@@ -11,11 +13,11 @@ using namespace std::chrono_literals;
 
 namespace cartpole_sim::node {
 
-CartPoleNode::CartPoleNode(CartPole& cartpole, RK4Integrator& rk4_integrator,
-                           Eigen::Vector4d& state)
+CartPoleNode::CartPoleNode(CartPole cartpole, RK4Integrator rk4_integrator,
+                           const Eigen::Vector4d& state)
     : Node(kCartPolePhysicsNodeName),
-      cartpole_(&cartpole),
-      rk4_integrator_(&rk4_integrator),
+      cartpole_(std::move(cartpole)),
+      rk4_integrator_(std::move(rk4_integrator)),
       state_(state)
 {
   publisher_ = this->create_publisher<sensor_msgs::msg::JointState>(
@@ -31,14 +33,14 @@ CartPoleNode::CartPoleNode(CartPole& cartpole, RK4Integrator& rk4_integrator,
   joint_state_.name[0] = kCartJointName;
   joint_state_.name[1] = kPendulumJointName;
 
-  auto timer_callback = [this]() -> void
-  {
-    auto compute_dynamics =
-        [this](const Eigen::Vector4d& state) -> Eigen::Vector4d
-    { return this->cartpole_->compute_dynamics(state); };
+  auto compute_dynamics =
+      [this](const Eigen::Vector4d& state) -> Eigen::Vector4d
+  { return this->cartpole_.compute_dynamics(state); };
 
+  auto timer_callback = [this, compute_dynamics]() -> void
+  {
     this->state_ =
-        this->rk4_integrator_->numeric_integration(state_, compute_dynamics);
+        this->rk4_integrator_.numeric_integration(state_, compute_dynamics);
 
     joint_state_.header.stamp = this->get_clock()->now();
     // The state vector of the cartpole system is as follows
@@ -49,7 +51,7 @@ CartPoleNode::CartPoleNode(CartPole& cartpole, RK4Integrator& rk4_integrator,
     joint_state_.velocity[0] = state_(2);
     joint_state_.velocity[1] = state_(3);
 
-    joint_state_.effort[0] = cartpole_->get_input_force_();
+    joint_state_.effort[0] = cartpole_.get_input_force();
     joint_state_.effort[1] = 0;
 
     publisher_->publish(joint_state_);

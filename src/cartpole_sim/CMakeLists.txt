@@ -16,7 +16,7 @@ add_library(
   cartpole_physics 
   src/node/cartpole_node.cpp
   src/dynamics/cartpole.cpp 
-  src/math/rk4_integration.cpp
+  src/math/rk4_integrator.cpp
 )
 target_link_libraries(cartpole_physics Eigen3::Eigen)
 target_include_directories(cartpole_physics PUBLIC 
@@ -36,8 +36,8 @@ target_link_libraries(
   cartpole_physics
 )
 
-# Require C99 and C++17
-target_compile_features(cartpole_physics_node PUBLIC c_std_99 cxx_std_17)
+# Require C99 and C++20
+target_compile_features(cartpole_physics_node PUBLIC c_std_99 cxx_std_20)
 
 install(
   DIRECTORY include/
