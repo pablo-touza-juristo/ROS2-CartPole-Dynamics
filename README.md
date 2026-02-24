@@ -122,10 +122,61 @@ $$
 
 ### 2.4. Numerical Integration
 
-These coupled non-linear equations are numerically integrated in real-time within the **ROS 2 Jazzy** node using a **4th-order Runge-Kutta (RK4)** method. This ensures high numerical stability and energy conservation during the simulation at a fixed frequency of **100Hz**.
+These coupled non-linear equations are numerically integrated in real-time within the **ROS 2 Jazzy** node
+using a **4th-order Runge-Kutta (RK4)** method. This ensures high numerical stability and energy
+conservation during the simulation at a fixed frequency of **100Hz**.
+
+### 2.5. Linear System Resolution
+
+To isolate the joint accelerations ($\ddot{\mathbf{q}}$) required for the numerical integration, I treat
+the equation of motion as a linear system $\mathbf{A}\mathbf{x} = \mathbf{b}$. Given that the mass matrix
+$\mathbf{M}(\mathbf{q})$ is symmetric and positive-definite, I use **Eigen3's LDLT decomposition**
+(`mass.ldlt().solve(...)`) to compute the accelerations efficiently. This method avoids the computational
+cost and potential numerical instability of direct matrix inversions.
 
 ## 3. Software Architecture
 
+To implement a robust and maintainable system, I have separated the pure mathematical physics from the ROS 2 middleware.
+
+### 3.1. Core Modules (Pure C++)
+
+- **`dynamics::CartPole`**: This class encapsulates the physical properties of the system and the Lagrangian dynamics solver.
+- **`math::RK4Integrator`**: A generic Runge-Kutta 4th Order numerical integrator. For reusability, it accepts any
+  standard C++ callable (`std::function`) that returns a state derivative.
+
+### 3.2. ROS 2 Node and Memory Management
+
+The `CartPoleNode` connects the physics engine with the ROS 2 environment, executing a strict 100Hz control loop ($\Delta t = 0.01s$).
+
+To ensure real-time performance and avoid memory fragmentation during the execution of the node, I have implemented strict value
+semantics. The `CartPole` and `RK4Integrator` objects are not allocated dynamically on the heap using pointers. Instead,
+they are constructed and moved (`std::move`) directly into the node's contiguous memory space. This approach eliminates
+pointer indirection overhead and ensures data locality.
+
 ## 4. Verification and Validation
 
+To verify the physical accuracy and numerical stability of the RK4 integrator, I have included a mechanical
+energy computation method in the `CartPole` class. By monitoring the sum of the kinetic and potential energy
+of the system during the simulation, I can validate that the integrator does not artificially inject or leak
+energy over time, excluding standard floating-point drift.
+
 ## 5. Environment and Reproducibility
+
+### 5.1. Dependencies
+
+- **ROS 2** (Jazzy Jalisco)
+- **Eigen3** (Linear algebra)
+- **C++20 Compiler**
+
+### 5.2. Build Instructions
+
+This project is built using the standard `colcon` build system:
+
+```bash
+mkdir -p ros2_ws/src
+cd ros2_ws/src
+git clone <your-repository-url>
+cd ..
+colcon build --packages-select cartpole_sim
+source install/setup.bash
+```
