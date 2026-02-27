@@ -3,3 +3,4 @@ log
 build
 install
 compile_commands.json
+pyrightconfig.json

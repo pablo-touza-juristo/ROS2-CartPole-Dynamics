@@ -1,5 +1,7 @@
 # Nonlinear Dynamics and Control of Underactuated Systems: The ROS 2 Cartpole
 
+![CartPole Passive Dynamics](./media/cartpole_physics_gif.webm)
+
 A high-fidelity C++20 framework for real-time physics simulation and LQR control of underactuated systems that
 features Lagrangian dynamics, RK4 numerical integration, and Eigen3-accelerated linear algebra.
 
@@ -187,7 +189,7 @@ To launch the physics simulation node:
 
 ```bash
 
-ros2 run cartpole_sim cartpole_physics_node
+ros2 launch cartpole_sim cartpole_sim.launch.py
 
 ```
 
