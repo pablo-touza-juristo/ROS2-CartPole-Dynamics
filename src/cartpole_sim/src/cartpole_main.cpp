@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
 {
   rclcpp::init(argc, argv);
 
-  RK4Integrator rk4_integrator = RK4Integrator(0.1);
+  RK4Integrator rk4_integrator = RK4Integrator(0.01);
   CartPole cartpole = CartPole(0.1, 1, 9.81, 1);
   Eigen::Vector4d initial_state;
 
