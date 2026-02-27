@@ -1,7 +1,7 @@
 # Nonlinear Dynamics and Control of Underactuated Systems: The ROS 2 Cartpole
 
 <p align="center">
-  <img src="./media/simulacion_pendulo.webp" width="350" alt="Cart-Pole Passive Dynamics">
+  <img src="./media/cartpole_physics_sim.webp" width="350" alt="Cart-Pole Passive Dynamics">
 </p>
 
 A high-fidelity C++20 framework for real-time physics simulation and LQR control of underactuated systems that
