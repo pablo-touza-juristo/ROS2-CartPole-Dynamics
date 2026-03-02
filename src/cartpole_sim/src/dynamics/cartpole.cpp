@@ -36,9 +36,10 @@ Eigen::Vector4d CartPole::compute_dynamics(const Eigen::Vector4d& state) const
       (pendulum_mass_ * pow(cable_longitude_, 2));
 
   coriolis << 0,
-      (-pendulum_mass_ * cable_longitude_ * state(3) * sin(state(1))), 0, 0;
+      ((-1) * (pendulum_mass_ * cable_longitude_ * state(3) * sin(state(1)))),
+      0, 0;
   tau_gravity << 0,
-      (-pendulum_mass_ * gravity_ * cable_longitude_ * sin(state(1)));
+      (pendulum_mass_ * gravity_ * cable_longitude_ * sin(state(1)));
   control_vector << 1, 0;
   speed << state(2), state(3);
 
@@ -81,7 +82,7 @@ double CartPole::compute_mechanical_energy(const Eigen::Vector4d& state) const
   // affects the system, so i only calculate the potential energy for the
   // pendulum
   potential_energy =
-      -pendulum_mass_ * gravity_ * cable_longitude_ * cos(angular_position);
+      pendulum_mass_ * gravity_ * cable_longitude_ * cos(angular_position);
 
   mechanical_energy = kinetic_energy + potential_energy;
 
