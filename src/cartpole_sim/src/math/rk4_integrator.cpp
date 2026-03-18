@@ -2,7 +2,7 @@
 
 namespace cartpole_sim::math {
 
-RK4Integrator::RK4Integrator(double dt) : dt_(dt) {}
+RK4Integrator::RK4Integrator(const Config& config) : dt_(config.dt) {}
 
 // Implementation of a Runge-Kutta fourth order numeric integrator
 // for simulating the dynamics of a generic system whose state can

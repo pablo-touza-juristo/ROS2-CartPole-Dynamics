@@ -5,11 +5,19 @@
 
 namespace cartpole_sim::dynamics {
 
+struct Config
+{
+    double pendulum_mass;
+    double cable_longitude;
+    double gravity;
+    double cart_mass;
+    double input_force;
+};
+
 class CartPole
 {
   public:
-    CartPole(double pendulum_mass, double cable_longitude, double gravity,
-             double cart_mass);
+    CartPole(const Config& config);
 
     /**
         This function will compute the dynamics of the full system using the

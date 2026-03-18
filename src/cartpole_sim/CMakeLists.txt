@@ -41,6 +41,7 @@ target_link_libraries(
 )
 
 # Require C99 and C++20
+target_compile_features(cartpole_physics PUBLIC c_std_99 cxx_std_20)
 target_compile_features(cartpole_physics_node PUBLIC c_std_99 cxx_std_20)
 
 install(
