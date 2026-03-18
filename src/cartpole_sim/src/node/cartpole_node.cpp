@@ -1,6 +1,7 @@
 #include "cartpole_sim/node/cartpole_node.hpp"
 
 #include <functional>
+#include <optional>
 #include <rclcpp_lifecycle/node_interfaces/lifecycle_node_interface.hpp>
 #include <string>
 
@@ -22,6 +23,8 @@ CartPoleNode::CartPoleNode(bool intra_process_comms)
                            get_default_cartpole_config());
   this->declare_parameters(std::string(kNamespaceParamName),
                            get_default_rk4_integrator_config());
+  cartpole_ = std::nullopt;
+  rk4_integrator_ = std::nullopt;
 }
 
 rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
@@ -64,6 +67,11 @@ CartPoleNode::on_configure(const rclcpp_lifecycle::State&)
 
   joint_state_.name[0] = kCartJointName;
   joint_state_.name[1] = kPendulumJointName;
+
+  if (cartpole_.has_value()) cartpole_.emplace(cartpole_config_);
+
+  if (rk4_integrator_.has_value())
+    rk4_integrator_.emplace(rk4_integrator_config_);
 
   auto compute_dynamics =
       [this](const Eigen::Vector4d& state) -> Eigen::Vector4d
@@ -128,7 +136,8 @@ CartPoleNode::on_cleanup(const rclcpp_lifecycle::State&)
 {
   timer_.reset();
   publisher_.reset();
-
+  cartpole_.reset();
+  rk4_integrator_.reset();
   return rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::
       CallbackReturn::SUCCESS;
 }
