@@ -1,0 +1,13 @@
+cartpole_physics_node:
+  ros__parameters:
+    cartpole_sim:
+      pendulum_mass: 1.2
+      cart_mass: 1.0
+      cable_longitude: 0.8
+      gravity: 9.81
+      input_force: 0.0
+      dt: 0.01
+      cart_init_pos: 0.0
+      pendulum_init_pos: 0.1
+      cart_init_speed: 0.0
+      pendulum_init_speed: 0.0

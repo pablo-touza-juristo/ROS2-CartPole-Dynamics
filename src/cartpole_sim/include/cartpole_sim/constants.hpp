@@ -16,6 +16,13 @@ inline constexpr char kPendulumJointName[] = "pendulum_joint";
 /* Constant for the name of the namespace */
 constexpr std::string_view kNamespaceParamName = "cartpole_sim";
 
+/* Parameter names for the state vector members */
+constexpr std::string_view kCartInitialPosParamName = "cart_init_pos";
+constexpr std::string_view kPendulumInitialPosParamName = "pendulum_init_pos";
+constexpr std::string_view kCartInitialLinearSpeedParamName = "cart_init_speed";
+constexpr std::string_view kPendulumInitialAngularSpeedParamName =
+    "pendulum_init_speed";
+
 /* Names for the parameters of the CartPole members */
 constexpr std::string_view kPendulumMassParamName = "pendulum_mass";
 constexpr std::string_view kCableLongitudeParamName = "cable_longitude";
@@ -40,6 +47,17 @@ inline std::map<std::string, rclcpp::ParameterValue>
 get_default_rk4_integrator_config()
 {
   return {{std::string(kDtParamName), rclcpp::ParameterValue(0.01)}};
+}
+
+inline std::map<std::string, rclcpp::ParameterValue> get_initial_state()
+{
+  return {
+      {std::string(kCartInitialPosParamName), rclcpp::ParameterValue(0.0)},
+      {std::string(kPendulumInitialPosParamName), rclcpp::ParameterValue(0.1)},
+      {std::string(kCartInitialLinearSpeedParamName),
+       rclcpp::ParameterValue(0.0)},
+      {std::string(kPendulumInitialAngularSpeedParamName),
+       rclcpp::ParameterValue(0.0)}};
 }
 
 inline std::string get_full_param_name(const std::string& param_name)

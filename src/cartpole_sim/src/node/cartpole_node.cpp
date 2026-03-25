@@ -2,6 +2,7 @@
 
 #include <functional>
 #include <optional>
+#include <rclcpp/logging.hpp>
 #include <rclcpp_lifecycle/node_interfaces/lifecycle_node_interface.hpp>
 #include <string>
 
@@ -23,6 +24,8 @@ CartPoleNode::CartPoleNode(bool intra_process_comms)
                            get_default_cartpole_config());
   this->declare_parameters(std::string(kNamespaceParamName),
                            get_default_rk4_integrator_config());
+  this->declare_parameters(std::string(kNamespaceParamName),
+                           get_initial_state());
   cartpole_ = std::nullopt;
   rk4_integrator_ = std::nullopt;
 }
@@ -30,6 +33,8 @@ CartPoleNode::CartPoleNode(bool intra_process_comms)
 rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
 CartPoleNode::on_configure(const rclcpp_lifecycle::State&)
 {
+  RCLCPP_INFO(this->get_logger(), "Node %s is being configured",
+              this->get_name());
   /* Simulation objects configuration */
   cartpole_config_.pendulum_mass =
       this->get_parameter(
@@ -54,6 +59,22 @@ CartPoleNode::on_configure(const rclcpp_lifecycle::State&)
       this->get_parameter(get_full_param_name(std::string(kDtParamName)))
           .as_double();
 
+  initial_state_ << this->get_parameter(get_full_param_name(std::string(
+                                            kCartInitialPosParamName)))
+                        .as_double(),
+      this->get_parameter(
+              get_full_param_name(std::string(kPendulumInitialPosParamName)))
+          .as_double(),
+      this->get_parameter(get_full_param_name(
+                              std::string(kCartInitialLinearSpeedParamName)))
+          .as_double(),
+      this->get_parameter(get_full_param_name(std::string(
+                              kPendulumInitialAngularSpeedParamName)))
+          .as_double();
+
+  state_ << initial_state_(0), initial_state_(1), initial_state_(2),
+      initial_state_(3);
+
   /* ROS 2 Utilities configuration (Publisher, JointState msg and timer) */
   publisher_ = this->create_publisher<sensor_msgs::msg::JointState>(
       kJointStateTopicName, 10);
@@ -68,9 +89,9 @@ CartPoleNode::on_configure(const rclcpp_lifecycle::State&)
   joint_state_.name[0] = kCartJointName;
   joint_state_.name[1] = kPendulumJointName;
 
-  if (cartpole_.has_value()) cartpole_.emplace(cartpole_config_);
+  if (!cartpole_.has_value()) cartpole_.emplace(cartpole_config_);
 
-  if (rk4_integrator_.has_value())
+  if (!rk4_integrator_.has_value())
     rk4_integrator_.emplace(rk4_integrator_config_);
 
   auto compute_dynamics =
@@ -102,6 +123,9 @@ CartPoleNode::on_configure(const rclcpp_lifecycle::State&)
 
   timer_->cancel();
 
+  RCLCPP_INFO(this->get_logger(), "Node %s has been configured",
+              this->get_name());
+
   return rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::
       CallbackReturn::SUCCESS;
 }
@@ -109,12 +133,17 @@ CartPoleNode::on_configure(const rclcpp_lifecycle::State&)
 rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
 CartPoleNode::on_activate(const rclcpp_lifecycle::State& state)
 {
+  RCLCPP_INFO(this->get_logger(), "Node %s is being activated",
+              this->get_name());
+
   rclcpp_lifecycle::LifecycleNode::on_activate(state);
 
   if (timer_->is_canceled()) timer_->reset();
 
-  publisher_ = this->create_publisher<sensor_msgs::msg::JointState>(
-      kJointStateTopicName, 10);
+  publisher_->on_activate();
+
+  RCLCPP_INFO(this->get_logger(), "Node %s has been activated",
+              this->get_name());
 
   return rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::
       CallbackReturn::SUCCESS;
@@ -123,9 +152,14 @@ CartPoleNode::on_activate(const rclcpp_lifecycle::State& state)
 rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
 CartPoleNode::on_deactivate(const rclcpp_lifecycle::State& state)
 {
+  RCLCPP_INFO(this->get_logger(), "Node %s is being deactivated",
+              this->get_name());
   rclcpp_lifecycle::LifecycleNode::on_deactivate(state);
 
   timer_->cancel();
+
+  RCLCPP_INFO(this->get_logger(), "Node %s has been deactivated",
+              this->get_name());
 
   return rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::
       CallbackReturn::SUCCESS;
@@ -134,10 +168,26 @@ CartPoleNode::on_deactivate(const rclcpp_lifecycle::State& state)
 rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
 CartPoleNode::on_cleanup(const rclcpp_lifecycle::State&)
 {
+  RCLCPP_INFO(this->get_logger(), "Node %s is being has begun cleanup",
+              this->get_name());
   timer_.reset();
   publisher_.reset();
   cartpole_.reset();
   rk4_integrator_.reset();
+
+  RCLCPP_INFO(this->get_logger(), "Node %s has finished cleanup",
+              this->get_name());
+  return rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::
+      CallbackReturn::SUCCESS;
+}
+
+rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
+CartPoleNode::on_shutdown(const rclcpp_lifecycle::State& state)
+{
+  rclcpp_lifecycle::LifecycleNode::on_shutdown(state);
+
+  RCLCPP_INFO(this->get_logger(), "Node %s shutting down...", this->get_name());
+
   return rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::
       CallbackReturn::SUCCESS;
 }
