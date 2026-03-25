@@ -1,15 +1,14 @@
 #include "cartpole_sim/node/cartpole_node.hpp"
 
 #include <functional>
+#include <lifecycle_msgs/msg/state.hpp>
 #include <optional>
 #include <rclcpp/logging.hpp>
-#include <rclcpp_lifecycle/node_interfaces/lifecycle_node_interface.hpp>
 #include <string>
 
 #include "cartpole_sim/constants.hpp"
 #include "cartpole_sim/dynamics/cartpole.hpp"
 #include "cartpole_sim/math/rk4_integrator.hpp"
-#include "sensor_msgs/msg/joint_state.hpp"
 
 using namespace std::chrono_literals;
 
@@ -123,6 +122,21 @@ CartPoleNode::on_configure(const rclcpp_lifecycle::State&)
 
   timer_->cancel();
 
+  // To reset the simulation the callback will be used in a dedicated service
+  // so the simulation can be reset without killing a relaunching the node
+  auto reset_simulation_service_callback =
+      [this](const std::shared_ptr<std_srvs::srv::Empty::Request> request,
+             std::shared_ptr<std_srvs::srv::Empty::Response> response) -> void
+  {
+    if (this->get_current_state().id() ==
+        lifecycle_msgs::msg::State::PRIMARY_STATE_ACTIVE)
+      this->state_ = this->initial_state_;
+  };
+
+  // As we do not expect any response we use the Empty template for the service
+  reset_sim_service_ = this->create_service<std_srvs::srv::Empty>(
+      "reset_simulation", reset_simulation_service_callback);
+
   RCLCPP_INFO(this->get_logger(), "Node %s has been configured",
               this->get_name());
 
@@ -138,8 +152,12 @@ CartPoleNode::on_activate(const rclcpp_lifecycle::State& state)
 
   rclcpp_lifecycle::LifecycleNode::on_activate(state);
 
+  // When the timer is off (canceled) it must be reset so it
+  // executes the callback
   if (timer_->is_canceled()) timer_->reset();
 
+  // The publisher is also a lifecycle element so it must be activated
+  // for it to work properly
   publisher_->on_activate();
 
   RCLCPP_INFO(this->get_logger(), "Node %s has been activated",
@@ -154,8 +172,13 @@ CartPoleNode::on_deactivate(const rclcpp_lifecycle::State& state)
 {
   RCLCPP_INFO(this->get_logger(), "Node %s is being deactivated",
               this->get_name());
+  // We transition the node to the deactivated state, ROS 2 manages
+  // the internals of the node as well as the managed lifecycle entities,
+  // such a the publisher
   rclcpp_lifecycle::LifecycleNode::on_deactivate(state);
 
+  // We cancel the timer so it does not publish the state of the system
+  // and the simulation stops
   timer_->cancel();
 
   RCLCPP_INFO(this->get_logger(), "Node %s has been deactivated",
@@ -170,6 +193,8 @@ CartPoleNode::on_cleanup(const rclcpp_lifecycle::State&)
 {
   RCLCPP_INFO(this->get_logger(), "Node %s is being has begun cleanup",
               this->get_name());
+
+  // Cleanup of the entities that the node uses
   timer_.reset();
   publisher_.reset();
   cartpole_.reset();

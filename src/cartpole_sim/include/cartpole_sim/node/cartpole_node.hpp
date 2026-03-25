@@ -2,19 +2,20 @@
 #define CARTPOLE_NODE_HPP
 
 #include <Eigen/Dense>
-#include <cartpole_sim/dynamics/cartpole.hpp>
-#include <cartpole_sim/math/rk4_integrator.hpp>
 #include <optional>
 #include <rclcpp/node.hpp>
 #include <rclcpp/node_interfaces/node_parameters_interface.hpp>
 #include <rclcpp/publisher.hpp>
+#include <rclcpp/service.hpp>
+#include <rclcpp/timer.hpp>
+#include <rclcpp_lifecycle/lifecycle_node.hpp>
 #include <rclcpp_lifecycle/lifecycle_publisher.hpp>
 #include <rclcpp_lifecycle/node_interfaces/lifecycle_node_interface.hpp>
 #include <sensor_msgs/msg/joint_state.hpp>
+#include <std_srvs/srv/empty.hpp>
 
-#include "rclcpp/timer.hpp"
-#include "rclcpp_lifecycle/lifecycle_node.hpp"
-#include "sensor_msgs/msg/joint_state.hpp"
+#include "cartpole_sim/dynamics/cartpole.hpp"
+#include "cartpole_sim/math/rk4_integrator.hpp"
 
 namespace cartpole_sim::node {
 
@@ -52,6 +53,7 @@ class CartPoleNode : public rclcpp_lifecycle::LifecycleNode
         sensor_msgs::msg::JointState>::SharedPtr publisher_;
     rclcpp::TimerBase::SharedPtr timer_;
     sensor_msgs::msg::JointState joint_state_;
+    rclcpp::Service<std_srvs::srv::Empty>::SharedPtr reset_sim_service_;
 };
 
 }  // namespace cartpole_sim::node

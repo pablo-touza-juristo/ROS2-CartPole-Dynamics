@@ -23,30 +23,27 @@ void CartPole::set_input_force(double input_force)
 
 Eigen::Vector4d CartPole::compute_dynamics(const Eigen::Vector4d& state) const
 {
-  Eigen::Matrix<double, 2, 2> mass, coriolis;
-  Eigen::Vector2d tau_gravity, control_vector, speed;
-
   // Initialization of the matrices and vectors using the members of the
   // CartPole, and the actual state of the cartpole
-  mass << (cart_mass_ + pendulum_mass_),
+  mass_ << (cart_mass_ + pendulum_mass_),
       (pendulum_mass_ * cable_longitude_ * cos(state(1))),
       (pendulum_mass_ * cable_longitude_ * cos(state(1))),
       (pendulum_mass_ * pow(cable_longitude_, 2));
 
-  coriolis << 0,
+  coriolis_ << 0,
       ((-1) * (pendulum_mass_ * cable_longitude_ * state(3) * sin(state(1)))),
       0, 0;
-  tau_gravity << 0,
+  tau_gravity_ << 0,
       (pendulum_mass_ * gravity_ * cable_longitude_ * sin(state(1)));
-  control_vector << 1, 0;
-  speed << state(2), state(3);
+  control_vector_ << 1, 0;
+  speed_ << state(2), state(3);
 
   // Being the masses matrix a symmetrical 2x2 matrix seems appropriate to use
   // the ldlt resolution method for it's simplicity and speed.
   // The resolution of the system yields a 2x1 vector that contains the
   // accelerations of the system in the actual state
-  auto acceleration = mass.ldlt().solve(
-      tau_gravity + control_vector * input_force_ - coriolis * speed);
+  auto acceleration = mass_.ldlt().solve(
+      tau_gravity_ + control_vector_ * input_force_ - coriolis_ * speed_);
 
   // Having calculated the accelerations of the system i combine them
   // with the velocities in the state vector to build the dot_state vector, it

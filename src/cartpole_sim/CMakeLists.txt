@@ -10,6 +10,7 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(std_srvs REQUIRED)
 find_package(Eigen3 REQUIRED NO_MODULE)
 find_package(rclcpp_lifecycle REQUIRED)
 find_package(lifecycle_msgs REQUIRED)
@@ -32,6 +33,7 @@ ament_target_dependencies(
   "rclcpp"
   "rclcpp_lifecycle"
   "lifecycle_msgs" 
+  "std_srvs"
 )
 
 add_executable(cartpole_physics_node src/cartpole_main.cpp)

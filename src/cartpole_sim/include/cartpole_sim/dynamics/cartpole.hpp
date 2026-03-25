@@ -1,6 +1,7 @@
 #ifndef CARTPOLE_HPP
 #define CARTPOLE_HPP
 
+#include <Eigen/Core>
 #include <Eigen/Dense>
 
 namespace cartpole_sim::dynamics {
@@ -46,6 +47,14 @@ class CartPole
     double gravity_;
     double cart_mass_;
     double input_force_;
+    /* This are the members used for the calculation of the dynamics
+     * they are declared as private so we reduce the number of times
+     * that the objects are built and destroyed*/
+    mutable Eigen::Matrix<double, 2, 2> mass_;
+    mutable Eigen::Matrix<double, 2, 2> coriolis_;
+    mutable Eigen::Vector2d tau_gravity_;
+    mutable Eigen::Vector2d control_vector_;
+    mutable Eigen::Vector2d speed_;
 };
 
 }  // namespace cartpole_sim::dynamics
