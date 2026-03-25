@@ -5,10 +5,16 @@
 #include <functional>
 
 namespace cartpole_sim::math {
+
+struct Config
+{
+    double dt;
+};
+
 class RK4Integrator
 {
   public:
-    RK4Integrator(double dt);
+    RK4Integrator(const Config& config);
 
     /**
       This function takes on the role of calculating the next state of the

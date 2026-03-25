@@ -7,15 +7,13 @@ namespace cartpole_sim::dynamics {
 
 // Initialize the input_force_ paremeter as 0 so the
 // cart is stationary
-CartPole::CartPole(double pendulum_mass, double cable_longitude, double gravity,
-                   double cart_mass)
-    : pendulum_mass_(pendulum_mass),
-      cable_longitude_(cable_longitude),
-      gravity_(gravity),
-      cart_mass_(cart_mass)
-{
-  input_force_ = 0;
-}
+CartPole::CartPole(const Config& config)
+    : pendulum_mass_(config.pendulum_mass),
+      cable_longitude_(config.cable_longitude),
+      gravity_(config.gravity),
+      cart_mass_(config.cart_mass),
+      input_force_(config.input_force)
+{}
 
 double CartPole::get_input_force() { return input_force_; }
 void CartPole::set_input_force(double input_force)

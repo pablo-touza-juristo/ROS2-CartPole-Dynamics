@@ -1,0 +1,7 @@
+CompileFlags:
+  Add:
+    - "-std=gnu++20"
+    - "-I/opt/ros/jazzy/include/rclcpp"
+    - "-I/opt/ros/jazzy/include/rclcpp_lifecycle"
+    - "-I/opt/ros/jazzy/include/rcutils"
+    - "-I/opt/ros/jazzy/include/lifecycle_msgs"

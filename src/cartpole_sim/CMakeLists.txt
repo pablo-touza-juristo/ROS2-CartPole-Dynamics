@@ -11,6 +11,8 @@ find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(Eigen3 REQUIRED NO_MODULE)
+find_package(rclcpp_lifecycle REQUIRED)
+find_package(lifecycle_msgs REQUIRED)
 
 add_library(
   cartpole_physics 
@@ -28,6 +30,8 @@ ament_target_dependencies(
   cartpole_physics
   "sensor_msgs"
   "rclcpp"
+  "rclcpp_lifecycle"
+  "lifecycle_msgs" 
 )
 
 add_executable(cartpole_physics_node src/cartpole_main.cpp)
@@ -37,6 +41,7 @@ target_link_libraries(
 )
 
 # Require C99 and C++20
+target_compile_features(cartpole_physics PUBLIC c_std_99 cxx_std_20)
 target_compile_features(cartpole_physics_node PUBLIC c_std_99 cxx_std_20)
 
 install(
