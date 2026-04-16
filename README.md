@@ -142,7 +142,7 @@ cost and potential numerical instability of direct matrix inversions.
 
 To implement a robust and maintainable system, I have separated the pure mathematical physics from the ROS 2 middleware.
 
-### 3.1. Core Modules (Pure C++)
+### 3.1. Core Modules
 
 - **`dynamics::CartPole`**: This class encapsulates the physical properties of the system and the Lagrangian dynamics solver.
 - **`math::RK4Integrator`**: A generic Runge-Kutta 4th Order numerical integrator. For reusability, it accepts any
