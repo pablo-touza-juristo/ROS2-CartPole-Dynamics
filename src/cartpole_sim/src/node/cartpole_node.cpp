@@ -130,7 +130,13 @@ CartPoleNode::on_configure(const rclcpp_lifecycle::State&)
   {
     if (this->get_current_state().id() ==
         lifecycle_msgs::msg::State::PRIMARY_STATE_ACTIVE)
-      this->state_ = this->initial_state_;
+      ;
+
+    else
+      RCLCPP_WARN(this->get_logger(),
+                  "The timer is not up yet, the simulation must start for it "
+                  "to be reset");
+    this->state_ = this->initial_state_;
   };
 
   // As we do not expect any response we use the Empty template for the service
