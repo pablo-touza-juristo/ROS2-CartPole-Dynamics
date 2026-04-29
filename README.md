@@ -157,6 +157,19 @@ semantics. The `CartPole` and `RK4Integrator` objects are not allocated dynamica
 they are constructed and moved (`std::move`) directly into the node's contiguous memory space. This approach eliminates
 pointer indirection overhead and ensures data locality.
 
+### 3.3 Parameters
+
+The system was previouly created as a static implementation of the `CartPole` system, with the parametrization of all the system
+variables i can change the system through the `launch.py` file or in the console so i can verify that the system functions correctly
+with diffent configurations. This will help test the future implementation of the LQR Controller with different masses of the pendulum
+and cart in order to test the versitality of the controller and how i have implemented it.
+
+### 3.4 Lifecycle Nodes
+
+For better state management the system uses lifecycle nodes, through the states I can configure the node step through step ensuring
+the system is fully configured before the timer that is in charge of the fisics starts running. This also enables me to make use of
+the state machine aspect of the node so i can implement a simulation restart and safely shutdown the node.
+
 ## 4. Verification and Validation
 
 To verify the physical accuracy and numerical stability of the RK4 integrator, I have included a mechanical
